@@ -67,52 +67,33 @@ function load(){
 
 function applyEvents(){
 	$("div.line").unbind('click').bind('click', function(){
-		console.log("-1---- " + turn);
+		console.log("-1---- " + meribari);
 		var id1 = parseInt($(this).attr("data-line-1"));
 		var id2 = parseInt($(this).attr("data-line-2"));  
+
 		
 		if(checkValid(this) && turn){	
 			var a = false, b = false;
-
+			console.log(meribari?"true player one":"false player two");
 			if(id1 >= 0) var a = addValue(id1);
 			if(id2 >= 0) var b = addValue(id2);
+			console.log("1 "+a+" "+b);
 			$(this).addClass("line-active");
 			$(this).attr("data-active", "true");
 
 			if(a === false && b === false){
-				applyEventsTwo();	
-				
-			}			
-		}	
-	});
-}
-
-function applyEventsTwo(){
-	meribari = false;
-	var v;
-	$("div.line").unbind('click').bind('click', function(){
-			console.log("-2---- " + turn);
-			var id1 = parseInt($(this).attr("data-line-1"));
-			var id2 = parseInt($(this).attr("data-line-2"));  
-
-			if( turn === true){
-				console.log("-----");
-				if(id1 >= 0) var a = addValue(id1);
-				if(id2 >= 0) var b = addValue(id2);
-				$(this).addClass("line-active");
-				$(this).attr("data-active", "true");
-
-				if(a === true || b === true){
-					console.log("dobara");
-					applyEventsTwo();
-						
+				//change turn
+				if(meribari)
+				{
+				 meribari = false;
 				}else{
-					console.log("dobara ni");
-					meribari = true;
-					$("#turn").text("Turn : " + "You");
+				 meribari = true;
 				}					
 			}
-		
+			else{
+					//don't change turn
+		 	}	
+		}	
 	});
 }
 
@@ -130,8 +111,8 @@ function acquire(id){
 	$("div.box[data-id='"+id+"']").css("background-color", color);	
 	boxes[id] = "full";
 
-	$(".player2").text("You : " + you);
-	$(".player1").text("Computer : " + comp);
+	$(".player2").text("Player Two : " + you);
+	$(".player1").text("Player One : " + comp);
 
 	var full = true;
 	for(var i=boxes.length-1; i>=0; i--){
@@ -141,7 +122,7 @@ function acquire(id){
 		}
 	}
 
-	if(full) alert(((you>comp) ? "You": "Computer") + " won");
+	if(full) alert(((you>comp) ? "Hassan": "Hassan") + " won");
 }
 
 
